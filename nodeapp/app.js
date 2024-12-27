@@ -22,8 +22,6 @@ const stripe = Stripe(process.env.STRIPE_SECRET_KEY);
 app.use('/webhooks/stripe', express.raw({ type: 'application/json' }));
 app.use(express.json());
 app.use(cors());
-// app.use(express.json());
-
 app.get('/', (req, res) => {
     res.send('API is running');
 });
@@ -34,7 +32,8 @@ console.log("Hostinger Password:", process.env.HOSTINGER_PASS);
 app.use('/api/auth', userRoutes);
 app.use('/api', driveRoutes);
 app.use('/api/pdform', pdformRoutes);
-app.use('/api/services', servicesRoutes);
+
+// app.use('/api/services', servicesRoutes);
 app.use('/api/contact-us', contactUsRoutes);
 app.use('/api/payment', paymentRoutes); 
 app.use('/api/payment/services', servicesPaymentRoutes);
@@ -61,8 +60,8 @@ app.post('/send-pickup-email', async (req, res) => {
   }
 });
 
-const endpointSecret = 'whsec_f243aee8d184cbf13d4e4806fe7ae97ba7876cc8eb64ea5198afd3f17776d45a'
-
+// const endpointSecret = 'whsec_f243aee8d184cbf13d4e4806fe7ae97ba7876cc8eb64ea5198afd3f17776d45a'
+const endpointSecret = process.env.ENDPOINTSECRET;
 app.post('/webhooks/stripe', express.raw({ type: 'application/json' }), async (req, res) => {
     const sig = req.headers['stripe-signature']; // Stripe signature sent in headers
     const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET; // Get your webhook secret key from the Stripe dashboard

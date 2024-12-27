@@ -20,10 +20,10 @@ router.patch('/update-pickuptrack/:id',UpdatePickUpTracking)
 
 router.patch('/update-dropofftrack/:id',UpdateDropOffTracking)
 
-router.get('/', PDGetAllFormData);
+// router.get('/', PDGetAllFormData);
 
 router.get('/:id', PDGetFormDataById);
 
-router.delete('/delete/:id', PDDeleteFormData);
+// router.delete('/delete/:id', PDDeleteFormData);
 
 module.exports = router;
