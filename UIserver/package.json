@@ -1,0 +1,40 @@
+{
+  "name": "bls",
+  "version": "0.1.0",
+  "private": true,
+  "homepage": "./",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "build-static": "next build && next export",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "@auth0/auth0-react": "^2.2.4",
+    "@auth0/nextjs-auth0": "^3.5.0",
+    "@next/third-parties": "^15.0.3",
+    "@stripe/react-stripe-js": "^2.8.1",
+    "@stripe/stripe-js": "^4.9.0",
+    "axios": "^1.7.7",
+    "crypto-js": "^4.2.0",
+    "globby": "^12.0.0",
+    "js-cookie": "^3.0.5",
+    "lucide-react": "^0.453.0",
+    "moment-timezone": "^0.5.46",
+    "next": "15.0.1",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-file-icon": "^1.5.0",
+    "react-helmet": "^6.1.0",
+    "react-helmet-async": "^2.0.5",
+    "react-icons": "^5.3.0"
+  },
+  "devDependencies": {
+    "eslint": "^8.32.0",
+    "eslint-config-next": "15.0.1",
+    "postcss": "^8.4.21",
+    "tailwindcss": "^3.4.1"
+  },
+  "type": "module"
+}

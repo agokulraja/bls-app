@@ -1,0 +1,7 @@
+# robots.txt
+
+User-agent: *
+Allow: /
+
+# Point search engines to your sitemap
+Sitemap: https://blsinternational.ca/sitemap.xml
