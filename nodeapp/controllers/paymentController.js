@@ -8,7 +8,7 @@ const Users = require('../models/User');
 const Comments = require('../models/Comments')
 const { sendPickupEmail } = require('../utils/emailService');
 const { Service } = require("../models");
-
+const {sendInfoEmail} = require('../utils/infoMail')
 const stripe = Stripe(process.env.STRIPE_SECRET_KEY);
 
 function generateTransactionId(userId, fromDataId) {
@@ -52,18 +52,58 @@ const createPaymentIntent = async (req, res) => {
         phonenumber: phonenumber, 
       },
     });
-    await Payment.create({
+    const paymentRecord = await Payment.create({
       fromDataId: formId,
       amount: amount,
       status: "pending",
       sessionId: session.id,
     });
+    const pickupDetails = await PickDrop.findOne({
+      where: { id: formId }, 
+      attributes: ["pickupEmail", "pickupName", "pickupContactNo", "serviceType", "dropoffEmail", "dropoffName","dropoffContactNo"], 
+    });
+
+    if (!pickupDetails) {
+      return res.status(404).json({ message: "Pickup details not found" });
+    }
+    const { pickupEmail, pickupName, pickupContactNo, serviceType, dropoffEmail, dropoffName,dropoffContactNo} = pickupDetails;
+    const transactionId = generateTransactionId(paymentRecord.id, formId);
+    const paymentDate = moment().format('YYYY-MM-DD HH:mm:ss'); 
+    let emailToSend = null;
+    let name = null;
+
+    if (serviceType === "pickonly" || serviceType === "pickanddrop" ) {
+      emailToSend = pickupEmail;
+      name = pickupName;
+      contact = pickupContactNo;
+    } else if (serviceType === "droponly") {
+      emailToSend = dropoffEmail;
+      name = dropoffName;
+      contact = dropoffContactNo;
+    }
+    if (emailToSend) {
+      await sendInfoEmail(emailToSend, name, serviceType, amount, transactionId, paymentDate, contact, pickupEmail);
+    }
+
     res.json({ id: session.id });
   } catch (error) {
     console.error("Error creating checkout session:", error);
     res.status(500).json({ error: error.message });
   }
 };
+    
+//     await Payment.create({
+//       fromDataId: formId,
+//       amount: amount,
+//       status: "pending",
+//       sessionId: session.id,
+//     });
+//     res.json({ id: session.id });
+//   } catch (error) {
+//     console.error("Error creating checkout session:", error);
+//     res.status(500).json({ error: error.message });
+//   }
+// };
 
 const confirmPayment = async (req, res) => {
   const { sessionId } = req.body;
@@ -113,11 +153,8 @@ const confirmPayment = async (req, res) => {
         name = pickupName;
       }
 
-      // Check if the email has already been sent
       if (emailToSend && !emailSent) {
         await sendPickupEmail(emailToSend, name, serviceType, amount, transactionId, date);
-        
-        // Update the payment record to indicate that the email has been sent
         await Payment.update(
           { emailSent: true },
           { where: { sessionId: sessionId } }
