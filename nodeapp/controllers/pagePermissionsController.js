@@ -66,13 +66,11 @@ exports.deletePermission = async (req, res) => {
 };
 
 exports.checkUserAccess = async (req, res) => {
-  console.log("hitting checkUserAccess");
 
   try {
     let { userId, pageId } = req.query;
     console.log("Received userId:", userId, "Received pageId:", pageId);
 
-    // Validate input
     if (!userId || !pageId) {
       return res.status(400).json({ message: "Missing userId or pageId" });
     }
@@ -89,6 +87,7 @@ exports.checkUserAccess = async (req, res) => {
     if (!user) {
       return res.status(404).json({ message: "User not found" });
     }
+    console.log(user)
 
     if (!user.status) {
       return res.status(403).json({ message: "User has no access to the application" });
@@ -121,6 +120,8 @@ exports.checkUserAccess = async (req, res) => {
     res.status(500).json({ message: "Failed to check access", error });
   }
 };
+
+
 
 // exports.checkUserAccess = async (req, res) => {
 //   console.log("hitting checkUserAccess");

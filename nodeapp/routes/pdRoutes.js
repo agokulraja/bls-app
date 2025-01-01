@@ -20,7 +20,7 @@ router.patch('/update-pickuptrack/:id',UpdatePickUpTracking)
 
 router.patch('/update-dropofftrack/:id',UpdateDropOffTracking)
 
-// router.get('/', PDGetAllFormData);
+router.get('/', PDGetAllFormData);
 
 router.get('/:id', PDGetFormDataById);
 
