@@ -60,7 +60,6 @@ app.post('/send-pickup-email', async (req, res) => {
   }
 });
 
-// const endpointSecret = 'whsec_f243aee8d184cbf13d4e4806fe7ae97ba7876cc8eb64ea5198afd3f17776d45a'
 const endpointSecret = process.env.ENDPOINTSECRET;
 app.post('/webhooks/stripe', express.raw({ type: 'application/json' }), async (req, res) => {
     const sig = req.headers['stripe-signature']; // Stripe signature sent in headers
