@@ -72,7 +72,6 @@ const PaymentDetailsPage = () => {
         setDropoffStatus(data.pickupDetails.dropoffShipmentStatus);
         setPickupTrackingNo(data.pickupDetails.pickupTrackingNo || "");
         setDropoffTrackingNo(data.pickupDetails.dropoffTrackingNo || "");
-        // console.log(data.pickupDetails.service.serviceName)
       } catch (error) {
         console.error("Error fetching payment details:", error);
       }
@@ -369,7 +368,7 @@ const PaymentDetailsPage = () => {
       <div className="relative w-full max-w-4xl p-8 bg-white rounded-lg shadow-lg dark:bg-gray-800">
         <button
           onClick={handleBack}
-          className="mb-4 px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600"
+          className="px-4 py-2 mb-4 text-white bg-blue-500 rounded-md hover:bg-blue-600"
         >
           {"<- Back"}
         </button>
@@ -506,9 +505,9 @@ const PaymentDetailsPage = () => {
           aria-hidden={!isSidebarOpen}
         >
           {/* Header */}
-          <div className="sticky top-0  z-10 bg-white border-b border-gray-200 dark:bg-gray-800 dark:text-white">
-            <div className="flex items-center mt-12 justify-between p-4">
-              <h2 className="text-xl ml-2 font-bold text-gray-800 dark:text-white">
+          <div className="sticky top-0 z-10 bg-white border-b border-gray-200 dark:bg-gray-800 dark:text-white">
+            <div className="flex items-center justify-between p-4 mt-12">
+              <h2 className="ml-2 text-xl font-bold text-gray-800 dark:text-white">
               Application Status
               </h2>
               <button
@@ -531,19 +530,19 @@ const PaymentDetailsPage = () => {
                 </svg>
               </button>
             </div>
-            <div className=" pb-2 px-6">
+            <div className="px-6 pb-2 ">
               
             
           </div>
 
         
           {/* Pickup Tracking Number Editing */}
-        <div className=" px-4">
-          <div className=" flex justify-between">
-            <h3 className="text-md font-semibold text-gray-800 dark:text-yellow-50">Pickup TN. :
+        <div className="px-4 ">
+          <div className="flex justify-between ">
+            <h3 className="font-semibold text-gray-800 text-md dark:text-yellow-50">Pickup TN. :
             </h3>
             {pickupTrackingNo && (
-            <div className="flex items-center justify-between  ">
+            <div className="flex items-center justify-between ">
                   <span
                     className={`inline-block px-2 py-1 text-xs font-semibold rounded ${
                       pickupstatus === "NA"
@@ -558,7 +557,7 @@ const PaymentDetailsPage = () => {
                   
                     <FaSync
                       onClick={handlePickupSyncStatus}
-                      className="ml-2 mr-1  text-sm text-blue-500 hover:text-blue-600 cursor-pointer"
+                      className="ml-2 mr-1 text-sm text-blue-500 cursor-pointer hover:text-blue-600"
                       title="Sync Status"
                     />
                  
@@ -571,18 +570,18 @@ const PaymentDetailsPage = () => {
                 type="text"
                 value={pickupTrackingNo}
                 onChange={(e) => setPickupTrackingNo(e.target.value)}
-                className="flex-grow py-2 px-2 text-black border rounded-l focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="flex-grow px-2 py-2 text-black border rounded-l focus:outline-none focus:ring-2 focus:ring-blue-500"
                 aria-label="Edit pickupTrackingNo"
               />
               <button
                 onClick={handlePickupTrackingNoUpdate}
-                className="px-4 py-2  text-white bg-green-500 rounded-r hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+                className="px-4 py-2 text-white bg-green-500 rounded-r hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
               >
                  {IspickupTrackingNoLoading ? "Updating" : "Save"}
               </button>
             </div>
           ) : (
-            <div className="flex items-center justify-between my-2 p-2 bg-gray-100 rounded dark:bg-gray-800 dark:text-white">
+            <div className="flex items-center justify-between p-2 my-2 bg-gray-100 rounded dark:bg-gray-800 dark:text-white">
               <span className="text-gray-800 dark:text-white">{pickupTrackingNo || "Enter Pick Up Tracking No"}</span>
               <div className="flex items-center">
               <button
@@ -597,7 +596,7 @@ const PaymentDetailsPage = () => {
               {pickupTrackingNo && 
               <FaExternalLinkAlt
                       onClick={handleNavigation}
-                      className="text-blue-500 text-sm hover:text-blue-600 cursor-pointer"
+                      className="text-sm text-blue-500 cursor-pointer hover:text-blue-600"
                       title="Track Application"
                     />
                   }
@@ -607,11 +606,11 @@ const PaymentDetailsPage = () => {
         </div>
 
         {/* Dropoff Tracking Number Editing */}
-        <div className=" px-4 mt-2">
-          <div className=" flex justify-between">
-            <h3 className="text-md font-semibold text-gray-800 dark:text-yellow-50">Dropoff TN. :</h3>
+        <div className="px-4 mt-2 ">
+          <div className="flex justify-between ">
+            <h3 className="font-semibold text-gray-800 text-md dark:text-yellow-50">Dropoff TN. :</h3>
             {dropoffTrackingNo && (
-            <div className="flex items-center justify-between  ">
+            <div className="flex items-center justify-between ">
               <span
                 className={`inline-block px-2 py-1 text-xs font-semibold rounded ${
                 dropoffstatus === "NA"
@@ -626,7 +625,7 @@ const PaymentDetailsPage = () => {
               
                 <FaSync
                   onClick={handleDropoffSyncStatus}
-                  className="ml-2 mr-1 text-sm text-blue-500 hover:text-blue-600 cursor-pointer"
+                  className="ml-2 mr-1 text-sm text-blue-500 cursor-pointer hover:text-blue-600"
                   title="Sync Status"
                 />
                  </div>
@@ -652,7 +651,7 @@ const PaymentDetailsPage = () => {
               </button>
             </div>
           ) : (
-            <div className="flex items-center justify-between my-2 p-2 bg-gray-100 rounded dark:bg-gray-800 dark:text-white">
+            <div className="flex items-center justify-between p-2 my-2 bg-gray-100 rounded dark:bg-gray-800 dark:text-white">
               <span className="text-gray-800 dark:text-white">{dropoffTrackingNo || "Enter Dropoff Tracking No."}</span>
               <div className="flex items-center">
               <button
@@ -667,7 +666,7 @@ const PaymentDetailsPage = () => {
               {dropoffTrackingNo &&
               <FaExternalLinkAlt
                       onClick={handleNavigation}
-                      className="text-blue-500 text-sm hover:text-blue-600 cursor-pointer "
+                      className="text-sm text-blue-500 cursor-pointer hover:text-blue-600 "
                       title="Track Application"
                     />}
              </div>
@@ -681,7 +680,7 @@ const PaymentDetailsPage = () => {
           {/* Scrollable Content */}
           <div className="flex flex-col h-full">
             {/* Comments Section */}
-            <div className="flex-grow custom-scrollbar pb-40 overflow-y-auto p-6 no-scrollbar">
+            <div className="flex-grow p-6 pb-40 overflow-y-auto custom-scrollbar no-scrollbar">
               <h3 className="mb-4 text-lg font-semibold text-gray-700 dark:text-white">
                 Comments
               </h3>
@@ -748,7 +747,7 @@ const PaymentDetailsPage = () => {
        
 
             {/* Footer */}
-            <div className="sticky bottom-0 z-10 bg-white dark:bg-gray-800 dark:text-white p-4">
+            <div className="sticky bottom-0 z-10 p-4 bg-white dark:bg-gray-800 dark:text-white">
               <textarea
                 value={newComment}
                 onChange={(e) => setNewComment(e.target.value)}
